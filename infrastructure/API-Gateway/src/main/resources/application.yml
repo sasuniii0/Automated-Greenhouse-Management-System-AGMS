@@ -1,24 +1,47 @@
 spring:
-  cloud:
-    gateway:
-      routes:
-        - id: zone-service
-          uri: lb://zone-service
-          predicates:
-            - Path=/api/zones/**
-        - id: sensor-service
-          uri: lb://sensor-service
-          predicates:
-            - Path=/api/sensors/**
-        - id: automation-service
-          uri: lb://automation-service
-          predicates:
-            - Path=/api/automation/**
-        - id: crop-service
-          uri: lb://crop-service
-          predicates:
-            - Path=/api/crops/**
+  application:
+    name: api-gateway
+  config:
+    import: "optional:configserver:http://localhost:8888"
+    # ^^^ "optional:" prefix means: if Config Server is not running,
+    # don't crash ? use local config instead.
+    # Remove "optional:" once Config Server is stable.
 
-jwt:
-  secret: dGhpcy1pcy1hLXNlY3VyZS1iYXNlNjQtMzItYnl0ZXMtc2VjcmV0
-  expiration: 86400000
+server:
+  port: 8080
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+spring.cloud.gateway:
+  routes:
+    - id: zone-service
+      uri: lb://zone-service
+      predicates:
+        - Path=/api/zones/**
+
+    - id: sensor-service
+      uri: lb://sensor-service
+      predicates:
+        - Path=/api/sensors/**
+
+    - id: automation-service
+      uri: lb://automation-service
+      predicates:
+        - Path=/api/automation/**
+
+    - id: crop-service
+      uri: lb://crop-service
+      predicates:
+        - Path=/api/crops/**
+
+# Allow the /auth/login endpoint without a token
+# (configured in SecurityConfig.java, not here)
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
