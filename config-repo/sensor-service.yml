@@ -6,3 +6,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+iot:
+  api:
+    base-url: http://104.211.95.241:8080
+    username: your-registered-email
+    password: your-password
+    device-id: your-device-id
