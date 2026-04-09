@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/zones")
-@RequiredArgsConstructor
 public class ZoneController {
     @Autowired
     private ZoneService zoneService;
