@@ -2,7 +2,7 @@ spring:
   application:
     name: zone-service
   config:
-    import: "configserver:http://localhost:8888"
+    import: "optional:config server:http://localhost:8888"
   cloud:
     config:
       fail-fast: false

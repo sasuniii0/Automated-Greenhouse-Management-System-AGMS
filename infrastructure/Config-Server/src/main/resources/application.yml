@@ -8,7 +8,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/sasuniii0/Automated-Greenhouse-Management-System-AGMS/tree/main/config-repo
+          uri: https://github.com/sasuniii0/Automated-Greenhouse-Management-System-AGMS
+          search-paths: config-repo
           default-label: main
   profiles:
     active: git

@@ -1,5 +1,6 @@
 package com.example.Zone.Service.config;
 
+import com.example.Zone.Service.manager.TokenManager;
 import feign.RequestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
