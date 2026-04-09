@@ -76,6 +76,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-openfeign-core</artifactId>
         </dependency>
+
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-slf4j</artifactId>
+			<version>12.5</version> <!-- match your Feign version -->
+		</dependency>
     </dependencies>
 	<dependencyManagement>
 		<dependencies>
