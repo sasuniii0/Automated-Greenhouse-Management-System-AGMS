@@ -8,18 +8,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Eureka-Server" />
-        <module name="API-Gateway" />
         <module name="Zone-Service" />
+        <module name="API-Gateway" />
         <module name="Config-Server" />
-      </profile>
-      <profile name="Annotation profile for Automation-Service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.44/lombok-1.18.44.jar" />
-        </processorPath>
-        <module name="Automation-Service" />
+        <module name="Crop-Service" />
       </profile>
       <profile name="Annotation profile for Sensor-Service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -27,9 +19,9 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.44/lombok-1.18.44.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.44/lombok-1.18.44.jar" />
         </processorPath>
         <module name="Sensor-Service" />
+        <module name="Automation-Service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -41,6 +33,7 @@
       <module name="API-Gateway" options="-parameters" />
       <module name="Automation-Service" options="-parameters" />
       <module name="Config-Server" options="-parameters" />
+      <module name="Crop-Service" options="-parameters" />
       <module name="Eureka-Server" options="-parameters" />
       <module name="Sensor-Service" options="-parameters" />
       <module name="Zone-Service" options="-parameters" />

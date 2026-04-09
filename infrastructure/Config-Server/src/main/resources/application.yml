@@ -1,9 +1,19 @@
 server:
   port: 8888
+
 spring:
+  application:
+    name: config-server
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/sasuniii0/Automated-Greenhouse-Management-System-AGMS
+          uri: https://github.com/sasuniii0/Automated-Greenhouse-Management-System-AGMS/tree/main/config-repo
           default-label: main
+  profiles:
+    active: git
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

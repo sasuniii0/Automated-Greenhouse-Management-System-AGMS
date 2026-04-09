@@ -11,12 +11,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ZoneRequest {
-    @NotNull
     private String name;
-
-    @NotNull
     private Double minTemp;
-
-    @NotNull
     private Double maxTemp;
 }

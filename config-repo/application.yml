@@ -5,5 +5,5 @@ eureka:
 
 # Shared JWT Secret
 jwt:
-  secret: "agms-super-secret-key-32-characters-long-12345"
+  secret: "1de809fe6991f5913a402f05475aacc8112eac4f55873ecfbc8bd47f2f7faf48"
   expiration: 86400000 # 24 hours

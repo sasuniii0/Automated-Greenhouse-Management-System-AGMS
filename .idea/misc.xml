@@ -6,11 +6,12 @@
       <list>
         <option value="$PROJECT_DIR$/infrastructure/Eureka-Server/pom.xml" />
         <option value="$PROJECT_DIR$/infrastructure/Config-Server/pom.xml" />
-        <option value="$PROJECT_DIR$/infrastructure/API-Gateway/pom.xml" />
         <option value="$PROJECT_DIR$/services/Zone-Service/pom.xml" />
         <option value="$PROJECT_DIR$/services/Sensor-Service/pom.xml" />
         <option value="$PROJECT_DIR$/services/Automation-Service/pom.xml" />
         <option value="$PROJECT_DIR$/services/iot-backend/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/API-Gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/services/Crop-Service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

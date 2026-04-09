@@ -1,6 +1,6 @@
 package com.example.Zone.Service.repository;
 
-import com.example.Zone.Service.entity.Zone;
+import com.example.Zone.Service.model.Zone;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
