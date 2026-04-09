@@ -1,9 +1,19 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/zone_db
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    username: root
+    password: password
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+server:
+  port: 8081
+
+iot:
+  api:
+    base-url: http://104.211.95.241:8080/api
+  credentials:
+    username: student123
+    password: password123

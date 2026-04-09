@@ -10,7 +10,6 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-    // Secret key for signing JWTs (in production, load from secure config)
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String generateToken(String username) {

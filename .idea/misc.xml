@@ -8,7 +8,15 @@
         <option value="$PROJECT_DIR$/infrastructure/Config-Server/pom.xml" />
         <option value="$PROJECT_DIR$/infrastructure/API-Gateway/pom.xml" />
         <option value="$PROJECT_DIR$/services/Zone-Service/pom.xml" />
+        <option value="$PROJECT_DIR$/services/Sensor-Service/pom.xml" />
+        <option value="$PROJECT_DIR$/services/Automation-Service/pom.xml" />
+        <option value="$PROJECT_DIR$/services/iot-backend/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/services/iot-backend/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="corretto-21" project-jdk-type="JavaSDK">

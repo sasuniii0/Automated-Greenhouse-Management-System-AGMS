@@ -19,7 +19,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-        // In production, validate username/password from DB or user service
         if ("admin".equals(request.getUsername()) && "password".equals(request.getPassword())) {
             String token = jwtUtil.generateToken(request.getUsername());
             return ResponseEntity.ok(new AuthResponse(token));

@@ -1,15 +1,23 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/sensor_db
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:h2:mem:sensor_db
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
 
+server:
+  port: 8082
+
 iot:
   api:
-    base-url: http://104.211.95.241:8080
-    username: your-registered-email
-    password: your-password
-    device-id: your-device-id
+    base-url: http://104.211.95.241:8080/api
+  credentials:
+    username: student123
+    password: password123
