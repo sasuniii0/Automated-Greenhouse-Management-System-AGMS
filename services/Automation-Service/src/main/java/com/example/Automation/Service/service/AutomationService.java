@@ -3,7 +3,6 @@ package com.example.Automation.Service.service;
 import com.example.Automation.Service.client.ZoneClient;
 import com.example.Automation.Service.model.AutomationLog;
 import com.example.Automation.Service.repository.AutomationLogRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,13 +47,13 @@ public class AutomationService {
             action = "TURN_HEATER_ON";
         }
 
-        AutomationLog log = new AutomationLog();
-        log.setZoneId(zoneId);
-        log.setTemperature(currentTemp);
-        log.setHumidity(currentHumidity);
-        log.setAction(action);
+        AutomationLog automationLog = new AutomationLog();
+        automationLog.setZoneId(zoneId);
+        automationLog.setTemperature(currentTemp);
+        automationLog.setHumidity(currentHumidity);
+        automationLog.setAction(action);
 
-        automationLogRepository.save(log);
+        automationLogRepository.save(automationLog);
         System.out.println("Rule applied for zone " + zoneId + ": " + action);
     }
 

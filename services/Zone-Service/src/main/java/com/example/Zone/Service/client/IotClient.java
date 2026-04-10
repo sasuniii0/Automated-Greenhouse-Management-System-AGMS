@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
-@FeignClient(name = "iot-client", url = "${iot.api.base-url}", configuration = FeignClient.class)
+@FeignClient(name = "iot-client", url = "${iot.api.base-url}")
 public interface IotClient {
     @PostMapping("/devices")
     Map<String, Object> registerDevice(@RequestBody Map<String, Object> deviceRequest);

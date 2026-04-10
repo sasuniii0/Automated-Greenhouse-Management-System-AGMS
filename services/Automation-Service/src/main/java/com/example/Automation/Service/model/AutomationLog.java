@@ -18,7 +18,7 @@ public class AutomationLog {
     private Long id;
 
     private Long zoneId;
-    private String action; // TURN_FAN_ON, TURN_HEATER_ON, STATUS_NORMAL
+    private String action;
     private Double temperature;
     private Double humidity;
     private LocalDateTime triggeredAt;
