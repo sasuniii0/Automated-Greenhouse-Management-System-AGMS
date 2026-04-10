@@ -1,18 +1,12 @@
 server:
-  port: 8080
+  port: 8084
 
 spring:
   application:
-    name: api-gateway
+    name: crop-service
 
   config:
     import: "optional:configserver:http://localhost:8888"
-
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
 
 eureka:
   client:
