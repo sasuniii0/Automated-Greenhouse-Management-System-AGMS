@@ -4,16 +4,19 @@ import com.example.Automation.Service.client.ZoneClient;
 import com.example.Automation.Service.model.AutomationLog;
 import com.example.Automation.Service.repository.AutomationLogRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 public class AutomationService {
-    private final AutomationLogRepository automationLogRepository;
-    private final ZoneClient zoneClient;
+
+    @Autowired
+    private  AutomationLogRepository automationLogRepository;
+    @Autowired
+    private  ZoneClient zoneClient;
 
     public void processTelemetry(Map<String, Object> telemetry) {
         Long zoneId = ((Number) telemetry.get("zoneId")).longValue();
@@ -34,7 +37,6 @@ public class AutomationService {
             }
         }
 
-        // Fetch thresholds from Zone Service
         Map<String, Object> zone = zoneClient.getZoneById(zoneId);
         Double minTemp = ((Number) zone.get("minTemp")).doubleValue();
         Double maxTemp = ((Number) zone.get("maxTemp")).doubleValue();

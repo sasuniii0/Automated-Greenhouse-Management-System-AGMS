@@ -8,11 +8,11 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@RequiredArgsConstructor
 @Configuration
 public class GatewayConfig {
 
-    private final JwtAuthFilter filter;
+    @Autowired
+    private JwtAuthFilter filter;
 
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
