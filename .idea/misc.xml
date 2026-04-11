@@ -10,8 +10,8 @@
         <option value="$PROJECT_DIR$/services/Sensor-Service/pom.xml" />
         <option value="$PROJECT_DIR$/services/Automation-Service/pom.xml" />
         <option value="$PROJECT_DIR$/services/iot-backend/pom.xml" />
-        <option value="$PROJECT_DIR$/infrastructure/API-Gateway/pom.xml" />
         <option value="$PROJECT_DIR$/services/Crop-Service/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/API-Gateway/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
