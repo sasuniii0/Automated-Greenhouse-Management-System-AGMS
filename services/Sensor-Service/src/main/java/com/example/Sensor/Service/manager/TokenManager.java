@@ -1,6 +1,7 @@
 package com.example.Sensor.Service.manager;
 
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -8,7 +9,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.Map;
 
 @Component
+@RequiredArgsConstructor
 public class TokenManager {
+
     @Value("${iot.api.base-url}")
     private String baseUrl;
 
@@ -21,11 +24,8 @@ public class TokenManager {
     private String accessToken;
     private String refreshToken;
 
+    // ✅ Inject the WebClient bean instead of building a new one
     private final WebClient webClient;
-
-    public TokenManager(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.build();
-    }
 
     @PostConstruct
     public void init() {
@@ -34,7 +34,7 @@ public class TokenManager {
 
     public synchronized void login() {
         try {
-            Map<String, String> response = webClient.post()
+            Map response = webClient.post()
                     .uri(baseUrl + "/auth/login")
                     .bodyValue(Map.of("username", username, "password", password))
                     .retrieve()
@@ -42,8 +42,8 @@ public class TokenManager {
                     .block();
 
             if (response != null) {
-                this.accessToken = response.get("accessToken");
-                this.refreshToken = response.get("refreshToken");
+                this.accessToken = (String) response.get("accessToken");
+                this.refreshToken = (String) response.get("refreshToken");
             }
         } catch (Exception e) {
             System.err.println("Failed to login to IoT API: " + e.getMessage());
@@ -56,7 +56,7 @@ public class TokenManager {
 
     public synchronized void refresh() {
         try {
-            Map<String, String> response = webClient.post()
+            Map response = webClient.post()
                     .uri(baseUrl + "/auth/refresh")
                     .bodyValue(Map.of("refreshToken", refreshToken))
                     .retrieve()
@@ -64,7 +64,7 @@ public class TokenManager {
                     .block();
 
             if (response != null) {
-                this.accessToken = response.get("accessToken");
+                this.accessToken = (String) response.get("accessToken");
             }
         } catch (Exception e) {
             System.err.println("Failed to refresh IoT token: " + e.getMessage());
