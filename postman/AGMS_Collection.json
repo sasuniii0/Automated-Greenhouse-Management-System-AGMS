@@ -1,0 +1,510 @@
+{
+  "info": {
+    "name": "AGMS - Automated Greenhouse Management System",
+    "_postman_id": "agms-collection-2026",
+    "description": "Complete API collection for the Automated Greenhouse Management System. Start by registering and logging in to get your JWT token, then use it in all subsequent requests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "jwtToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔐 Auth (Gateway)",
+      "item": [
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "var json = pm.response.json();",
+                  "if (json.data && json.data.token) {",
+                  "  pm.collectionVariables.set('jwtToken', json.data.token);",
+                  "  console.log('Token saved to jwtToken variable');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🌿 Zone Management",
+      "item": [
+        {
+          "name": "Create Zone",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 201', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "var json = pm.response.json();",
+                  "if (json.id) {",
+                  "  pm.collectionVariables.set('zoneId', json.id);",
+                  "  console.log('Zone ID saved: ' + json.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tomato Zone\",\n  \"minTemp\": 18.0,\n  \"maxTemp\": 30.0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/zones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones"]
+            }
+          }
+        },
+        {
+          "name": "Create Zone - Invalid (minTemp >= maxTemp)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bad Zone\",\n  \"minTemp\": 35.0,\n  \"maxTemp\": 20.0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/zones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones"]
+            }
+          }
+        },
+        {
+          "name": "Get All Zones",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/zones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones"]
+            }
+          }
+        },
+        {
+          "name": "Get Zone By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/zones/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Zone",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tomato Zone Updated\",\n  \"minTemp\": 20.0,\n  \"maxTemp\": 32.0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/zones/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Zone",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/zones/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "📡 Sensor Telemetry",
+      "item": [
+        {
+          "name": "Get Latest Readings",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sensors/latest",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "sensors", "latest"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "⚙️ Automation & Control",
+      "item": [
+        {
+          "name": "Process Telemetry (Internal)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"zoneId\": 1,\n  \"deviceId\": \"b751b8c9-644a-484c-ba3f-be63f9b27ad0\",\n  \"value\": {\n    \"temperature\": 34.5,\n    \"tempUnit\": \"CELSIUS\",\n    \"humidity\": 60.0,\n    \"humidityUnit\": \"PERCENTAGE\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/automation/process",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "automation", "process"]
+            }
+          }
+        },
+        {
+          "name": "Process Telemetry - Heater Trigger",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"zoneId\": 1,\n  \"deviceId\": \"b751b8c9-644a-484c-ba3f-be63f9b27ad0\",\n  \"value\": {\n    \"temperature\": 10.0,\n    \"tempUnit\": \"CELSIUS\",\n    \"humidity\": 45.0,\n    \"humidityUnit\": \"PERCENTAGE\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/automation/process",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "automation", "process"]
+            }
+          }
+        },
+        {
+          "name": "Get Automation Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/automation/logs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "automation", "logs"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🌱 Crop Inventory",
+      "item": [
+        {
+          "name": "Register Crop Batch",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200 or 201', function () {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                  "});",
+                  "",
+                  "var json = pm.response.json();",
+                  "if (json.id) {",
+                  "  pm.collectionVariables.set('cropId', json.id);",
+                  "  console.log('Crop ID saved: ' + json.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tomatoes\",\n  \"zoneId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/crops",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "crops"]
+            }
+          }
+        },
+        {
+          "name": "Get All Crops",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/crops",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "crops"]
+            }
+          }
+        },
+        {
+          "name": "Get Crops by Status - SEEDLING",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/crops?status=SEEDLING",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "crops"],
+              "query": [
+                { "key": "status", "value": "SEEDLING" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Crops by Status - VEGETATIVE",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/crops?status=VEGETATIVE",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "crops"],
+              "query": [
+                { "key": "status", "value": "VEGETATIVE" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Crops by Status - HARVESTED",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/crops?status=HARVESTED",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "crops"],
+              "query": [
+                { "key": "status", "value": "HARVESTED" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Crop Status - SEEDLING to VEGETATIVE",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/crops/1/status?status=VEGETATIVE",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "crops", "1", "status"],
+              "query": [
+                { "key": "status", "value": "VEGETATIVE" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Crop Status - VEGETATIVE to HARVESTED",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/crops/1/status?status=HARVESTED",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "crops", "1", "status"],
+              "query": [
+                { "key": "status", "value": "HARVESTED" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Crop Status - Invalid Transition (400)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/crops/1/status?status=SEEDLING",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "crops", "1", "status"],
+              "query": [
+                { "key": "status", "value": "SEEDLING" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔒 Security Tests",
+      "item": [
+        {
+          "name": "No Token - Expect 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Returns 401 without token', function () {",
+                  "  pm.response.to.have.status(401);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/zones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones"]
+            }
+          }
+        },
+        {
+          "name": "Invalid Token - Expect 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Returns 401 with invalid token', function () {",
+                  "  pm.response.to.have.status(401);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer invalid.token.here" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/zones",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "zones"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
